@@ -4,6 +4,24 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
 
 # Quickly serve the current directory as HTTP
-alias serve='ruby -run -e httpd . -p 8000'  # Or python -m SimpleHTTPServer :)
+# alias serve='ruby -run -e httpd . -p 8000'  # Or python -m SimpleHTTPServer :)
 
-alias att=' atom .'
+# apps
+alias att='atom .'
+alias bat='bat --theme GitHub'
+alias edex="z edex-ui && npm run start"
+
+# docker
+alias dcup='docker-compose up'
+alias dcdown='docker-compose down'
+alias dcexec='docker-compose down'
+
+# node
+alias npmrmi='rm -rf node_modules package-lock.json && npm i'
+
+# shell
+alias set-title='DISABLE_AUTO_TITLE=true && title'
+
+# git
+alias gsta='git stash'
+alias gt='git tag'

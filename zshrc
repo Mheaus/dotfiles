@@ -1,32 +1,115 @@
+# profiling
+if [[ "$ZPROF" = true ]]; then
+  zmodload zsh/zprof
+fi
+
+# zplug framework https://github.com/zplug/zplug
+# install zplug if not found
+[[ -d ~/.zplug ]] || {
+  curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
+  source ~/.zplug/zplug
+  zplug update --self
+}
+
+# essential
+source ~/.zplug/init.zsh
+
 ZSH=$HOME/.oh-my-zsh
+
+##### functions ####
+timezsh() {
+  shell=${1-$SHELL}
+  for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
+}
+
+profzsh() {
+  shell=${1-$SHELL}
+  ZPROF=true $shell -i -c exit
+}
+
+
+# Add ruby version on prompt (float right)
+# if [ -x "$(command -v rbenv)" ]; then RPS1='[$(ruby_prompt_info)]$EPS1'; fi
+
+# custom title
+# DISABLE_AUTO_TITLE="true"
+# case $TERM in
+#   xterm*)
+#     precmd () {print -Pn "\e]0;%~\a"}
+#     ;;
+# esac
+
+# add current time on prompt ( float right )
+RPS1='[$(date +"%T")]$EPS1'
+
+##### theme #####
+zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
+# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 
 # You can change the theme with another one:
 #   https://github.com/robbyrussell/oh-my-zsh/wiki/themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
-# Add ruby version on prompt (float right)
-if [ -x "$(command -v rbenv)" ]; then RPS1='[$(ruby_prompt_info)]$EPS1'; fi
 
-# Useful plugins for Rails development with Sublime Text
-plugins=(gitfast brew rbenv last-working-dir common-aliases sublime zsh-syntax-highlighting history-substring-search)
+# nvm
+# export NVM_LAZY_LOAD=true
+# export NVM_DIR="$HOME/.nvm"
+# . "/usr/local/opt/nvm/nvm.sh"
+
+##### plugins #####
+zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/gitfast", from:oh-my-zsh
+zplug "plugins/common-aliases", from:oh-my-zsh
+zplug "plugins/z", from:oh-my-zsh
+zplug "plugins/cp", from:oh-my-zsh
+zplug "plugins/osx", from:oh-my-zsh
+zplug "plugins/battery", from:oh-my-zsh
+zplug "plugins/bgnotify", from:oh-my-zsh
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "mdumitru/last-working-dir"
+# handle dark/light theme
+zplug "pndurette/zsh-lux"
+# plugin that reminds you to use existing aliases for commands you just typed
+zplug "MichaelAquilina/zsh-you-should-use"
+# installing, updating and loading nvm
+# zplug "lukechilds/zsh-nvm"
+
+# oh-my-zsh plugins
+# plugins=(gitfast brew rbenv last-working-dir common-aliases zsh-syntax-highlighting history-substring-search z cp osx battery bgnotify)
+
 
 # Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
-export HOMEBREW_NO_ANALYTICS=1
-
-# Actually load Oh-My-Zsh
-source "${ZSH}/oh-my-zsh.sh"
+# export HOMEBREW_NO_ANALYTICS=1
 
 # Rails and Ruby uses the local `bin` folder to store binstubs.
 # So instead of running `bin/rails` like the doc says, just run `rails`
-export PATH="./bin:${PATH}:/usr/local/sbin"
+# export PATH="./bin:${PATH}:/usr/local/sbin"
 
-# Store your own aliases in the ~/.aliases file and load the here.
+##### aliases #####
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
 # Encoding stuff for the terminal
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export BUNDLER_EDITOR="subl $@ >/dev/null 2>&1"
-export BUNDLER_EDITOR="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
-export BUNDLER_EDITOR="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
-export BUNDLER_EDITOR="'/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl'"
+# export BUNDLER_EDITOR="subl $@ >/dev/null 2>&1"
+
+# iterm shell integration
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# install plugins if some of them are not installed yet
+if ! zplug check --verbose; then
+  printf "Install? [y/N]: "
+  if read -q; then
+    echo; zplug install
+  fi
+fi
+
+# essential
+zplug load
+
+# end of profiling
+if [[ "$ZPROF" = true ]]; then
+  zprof
+fi
