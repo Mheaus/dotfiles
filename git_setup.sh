@@ -8,10 +8,8 @@ git config --global user.email $email
 git config --global user.name $full_name
 
 git add .
-git commit --message "My identity for @lewagon in the gitconfig"
+git commit --message "My identity in the gitconfig"
 git push origin master
-
-git remote add upstream git@github.com:lewagon/dotfiles.git
 
 GITHUB_NICKNAME=$(git remote get-url --push origin | cut -d ":" -f 2 | cut -d "/" -f 1)
 GITHUB_EMAIL=$(curl -s https://api.github.com/repos/${GITHUB_NICKNAME}/dotfiles/commits/`git rev-parse HEAD` | jq -r '.commit.author.email')
