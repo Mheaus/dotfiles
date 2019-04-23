@@ -6,7 +6,7 @@ fi
 # zplug framework https://github.com/zplug/zplug
 # install zplug if not found
 [[ -d ~/.zplug ]] || {
-  curl -fLo ~/.zplug/zplug --create-dirs git.io/zplug
+  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
   source ~/.zplug/zplug
   zplug update --self
 }
@@ -15,6 +15,11 @@ fi
 source ~/.zplug/init.zsh
 
 ZSH=$HOME/.oh-my-zsh
+
+##### history management #####
+export HISTFILE=~/.zsh_history
+export HISTSIZE=10000
+export SAVEHIST=10000
 
 ##### functions ####
 timezsh() {
@@ -52,7 +57,7 @@ zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
 
 
 # nvm
-# export NVM_LAZY_LOAD=true
+export NVM_LAZY_LOAD=true
 # export NVM_DIR="$HOME/.nvm"
 # . "/usr/local/opt/nvm/nvm.sh"
 
@@ -66,6 +71,8 @@ zplug "plugins/osx", from:oh-my-zsh
 zplug "plugins/battery", from:oh-my-zsh
 zplug "plugins/bgnotify", from:oh-my-zsh
 zplug "zsh-users/zsh-syntax-highlighting"
+# don't forget to bindkey with zsh-history-substring-search :
+# bindkey '^[[A' history-substring-search-up && bindkey '^[[B' history-substring-search-down
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "mdumitru/last-working-dir"
@@ -74,11 +81,10 @@ zplug "pndurette/zsh-lux"
 # plugin that reminds you to use existing aliases for commands you just typed
 zplug "MichaelAquilina/zsh-you-should-use"
 # installing, updating and loading nvm
-# zplug "lukechilds/zsh-nvm"
+zplug "lukechilds/zsh-nvm"
 
 # oh-my-zsh plugins
 # plugins=(gitfast brew rbenv last-working-dir common-aliases zsh-syntax-highlighting history-substring-search z cp osx battery bgnotify)
-
 
 # Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 # export HOMEBREW_NO_ANALYTICS=1
