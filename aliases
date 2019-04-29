@@ -10,6 +10,7 @@ alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/download
 alias set-title='DISABLE_AUTO_TITLE=true && title'
 
 # docker
+alias d="docker"
 alias d-c="docker-compose"
 alias dcup="docker-compose up"
 alias dcdown="docker-compose down"
@@ -17,6 +18,7 @@ alias dexec="docker exec"
 alias dps="docker ps"
 alias dpsa="docker ps -a"
 alias dpsf="docker ps -f"
+alias dpsft='dps --format "table{{.ID}}\t{{.Names}}\t{{.Status}}"'
 
 # git
 alias gsta='git stash'
@@ -34,6 +36,7 @@ alias npmrmi='rm -rf node_modules package-lock.json && npm i'
 
 # apps
 alias att='atom .'
+alias atts='atom ~'
 alias atpl='apm list --installed --bare'
 alias chrome='open -a "Google Chrome"'
 alias edex='z edex-ui && npm run start'
