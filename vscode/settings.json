@@ -1,0 +1,93 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "atlascode.jira.workingSite": {
+    "baseUrlSuffix": "atlassian.net"
+  },
+  "emmet.includeLanguages": {
+    "vue-html": "html",
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  "yaml.schemas": {
+    "file:///Users/mheos/.vscode/extensions/atlassian.atlascode-1.4.3/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+  },
+  "debug.allowBreakpointsEverywhere": true,
+  "debug.enableAllHovers": true,
+  "debug.inlineValues": true,
+  "debug.node.autoAttach": "off",
+  "editor.cursorBlinking": "smooth",
+  "editor.find.autoFindInSelection": true,
+  "editor.find.globalFindClipboard": true,
+  "editor.fontLigatures": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.quickSuggestionsDelay": 0,
+  "editor.suggest.localityBonus": true,
+  "editor.suggest.shareSuggestSelections": true,
+  "editor.tabCompletion": "onlySnippets",
+  "editor.tabSize": 2,
+  "editor.wordWrapColumn": 100,
+  "eslint.alwaysShowStatus": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.experimental.incrementalSync": true,
+  "eslint.run": "onSave",
+  "files.autoSave": "onFocusChange",
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "fileutils.delete.useTrash": true,
+  "git.alwaysShowStagedChangesResourceGroup": true,
+  "git.showPushSuccessNotification": true,
+  "gitlab.showPipelineUpdateNotifications": true,
+  "gitlens.advanced.telemetry.enabled": false,
+  "gitlens.codeLens.enabled": false,
+  "gitlens.codeLens.recentChange.enabled": false,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.preferences.quoteStyle": "single",
+  "jest.autoEnable": false,
+  "npm.enableScriptExplorer": true,
+  "prettier.printWidth": 120,
+  "prettier.semi": false,
+  "prettier.singleQuote": true,
+  "search.quickOpen.includeSymbols": true,
+  "search.smartCase": true,
+  "sortLines.filterBlankLines": true,
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "Hyper.app",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.suggest.completeFunctionCalls": true,
+  "window.zoomLevel": -1,
+  "workbench.colorTheme": "Atom One Dark",
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.revealIfOpen": true,
+  "workbench.fontAliasing": "antialiased",
+  "workbench.iconTheme": "city-lights-icons-vsc-light",
+  "zenMode.restore": true,
+  "autoimport.useSemiColon": false,
+  "emmet.showSuggestionsAsSnippets": true,
+  "typescript.suggestionActions.enabled": false,
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue"
+}
