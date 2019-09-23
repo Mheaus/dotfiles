@@ -6,7 +6,7 @@ module.exports = {
   config: {
     // choose either `'stable'` for receiving highly polished,
     // or `'canary'` for less polished but more frequent updates
-    updateChannel: "stable",
+    updateChannel: "canary",
 
     // default font size in pixels for all tabs
     fontSize: 12,
@@ -127,7 +127,9 @@ module.exports = {
     shellArgs: ["--login"],
 
     // for environment variables
-    env: {},
+    env: {
+      HYPERLINE_CONFIG: '{"gitlabUrl":"https://gitlab.com","gitlabPrivateToken": "", "plugins":"[[time, battery, memory, cpu, network, docker], [gitlab]]"}'
+    },
 
     // set to `false` for no bell
     bell: "SOUND",
@@ -136,7 +138,10 @@ module.exports = {
     copyOnSelect: true,
 
     // if `true` (without backticks and without quotes), hyper will be set as the default protocol client for SSH
-    defaultSSHApp: true
+    defaultSSHApp: true,
+
+    // The number of rows to be persisted in terminal buffer for scrolling
+    scrollback: 5000
 
     // if `true` (without backticks and without quotes), on right click selected text will be copied or pasted if no
     // selection is present (`true` by default on Windows and disables the context menu feature)
