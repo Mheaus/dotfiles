@@ -58,12 +58,11 @@ profzsh() {
 #     ;;
 # esac
 
-# add current time on prompt ( float right )
-RPS1='[$(date +"%T")]$EPS1'
-
 ##### theme #####
 zplug "Mheaus/zsh-theme", from:github, as:theme
 # zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
+# zplug "ergenekonyigit/lambda-gitster", from:github, as:theme
+# zplug "NicolaiRuckel/oh-my-zsh-candy-light", from:github, as:theme
 # zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 
 # You can change the theme with another one:
