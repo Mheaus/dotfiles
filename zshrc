@@ -33,6 +33,8 @@ setopt HIST_SAVE_NO_DUPS # Don't write duplicate entries in the history file.
 setopt HIST_REDUCE_BLANKS # Remove superfluous blanks before recording entry.
 setopt HIST_VERIFY # Don't execute immediately upon history expansion.
 
+setopt correct # try to correct spelling of commands
+
 ##### functions ####
 timezsh() {
   shell=${1-$SHELL}
@@ -60,20 +62,25 @@ profzsh() {
 RPS1='[$(date +"%T")]$EPS1'
 
 ##### theme #####
-zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
+zplug "Mheaus/zsh-theme", from:github, as:theme
+# zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
 # zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 
 # You can change the theme with another one:
 #   https://github.com/robbyrussell/oh-my-zsh/wiki/themes
 # ZSH_THEME="robbyrussell"
 
-
-# nvm
-export NVM_LAZY_LOAD=true
-# export NVM_DIR="$HOME/.nvm"
-# . "/usr/local/opt/nvm/nvm.sh"
-
 ##### plugins #####
+
+# installing, updating and loading nvm
+export NVM_LAZY_LOAD=true
+export NVM_DIR="$HOME/.nvm"
+# . "/usr/local/opt/nvm/nvm.sh"
+zplug "nvm-sh/nvm", use:nvm.sh # same
+# zplug "lukechilds/zsh-nvm"
+
+# oh-my-zsh plugins
+# plugins=(gitfast brew rbenv last-working-dir common-aliases zsh-syntax-highlighting history-substring-search z cp osx battery bgnotify)
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/gitfast", from:oh-my-zsh
 zplug "plugins/common-aliases", from:oh-my-zsh
@@ -93,11 +100,6 @@ zplug "mdumitru/last-working-dir"
 zplug "pndurette/zsh-lux"
 # plugin that reminds you to use existing aliases for commands you just typed
 zplug "MichaelAquilina/zsh-you-should-use"
-# installing, updating and loading nvm
-zplug "lukechilds/zsh-nvm"
-
-# oh-my-zsh plugins
-# plugins=(gitfast brew rbenv last-working-dir common-aliases zsh-syntax-highlighting history-substring-search z cp osx battery bgnotify)
 
 # Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 # export HOMEBREW_NO_ANALYTICS=1
@@ -106,13 +108,13 @@ zplug "lukechilds/zsh-nvm"
 # So instead of running `bin/rails` like the doc says, just run `rails`
 # export PATH="./bin:${PATH}:/usr/local/sbin"
 
-##### aliases #####
-[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
-
 # Encoding stuff for the terminal
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 # export BUNDLER_EDITOR="subl $@ >/dev/null 2>&1"
+
+# Always enable colored `grep` output.
+export GREP_OPTIONS='--color=auto';
 
 # iterm shell integration
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -127,6 +129,13 @@ fi
 
 # essential
 zplug load
+
+##### aliases #####
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+
+
+# flutter path
+export PATH="$PATH:`pwd`/flutter/bin"
 
 # end of profiling
 if [[ "$ZPROF" = true ]]; then

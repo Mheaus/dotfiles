@@ -28,11 +28,13 @@ alias gfwff='git flow feature finish'
 alias gfwh='git flow hotfix'
 alias gfwr='git flow release'
 alias gt='git tag'
+alias gpo='git push origin'
 
 # npm
 alias npmrmi='rm -rf node_modules package-lock.json && npm i'
 
 # apps
+alias vsc='code .'
 alias att='atom .'
 alias atpl='apm list --installed --bare'
 alias chrome='open -a "Google Chrome"'
