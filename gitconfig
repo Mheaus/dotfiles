@@ -48,7 +48,7 @@
   mergeoptions = --no-edit
 [user]
 	name = Mathieu Audebert
-	email = mathieu.audebert@timeonegroup.com
+	email = mathieu@go-aos.io
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f

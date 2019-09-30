@@ -9,7 +9,7 @@ module.exports = {
     updateChannel: "canary",
 
     // default font size in pixels for all tabs
-    fontSize: 12,
+    fontSize: 10,
 
     // font family with optional fallbacks
     fontFamily:
@@ -84,7 +84,7 @@ module.exports = {
     showWindowControls: "",
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: "12px 14px",
+    // padding: "8px 12px",
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -120,7 +120,7 @@ module.exports = {
     //
     // PowerShell on Windows
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
-    shell: "",
+    shell: "zsh",
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
@@ -128,7 +128,7 @@ module.exports = {
 
     // for environment variables
     env: {
-      HYPERLINE_CONFIG: '{"gitlabUrl":"https://gitlab.com","gitlabPrivateToken": "", "plugins":"[[time, battery, memory, cpu, network, docker], [gitlab]]"}'
+      HYPERLINE_CONFIG: '{"gitlabUrl":"https://gitlab.com","gitlabPrivateToken": "F-qUo7PLUMcVxMTioozi", "plugins":"[[time, battery, memory, cpu, network, docker], [gitlab]]"}'
     },
 
     // set to `false` for no bell
