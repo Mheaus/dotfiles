@@ -75,9 +75,9 @@ install_or_upgrade "jq"
 install_or_upgrade "openssl"
 ```
 
-## Atom - Text Editor
+## VSCode - Text Editor
 
-A text editor is one of the most important tools of a developer. Go to [this page](https://atom.io/) and download **Atom** for OS X. Install it (double click the downloaded file and drag & drop the app **into** the `Applications` folder, **don't skip this**).
+A text editor is one of the most important tools of a developer. Go to [this page](https://code.visualstudio.com/) and download **VSCode** for MacOS. Install it (double click the downloaded file and drag & drop the app **into** the `Applications` folder, **don't skip this**).
 
 ## Hyper - Beautiful an extensible Terminal
 
@@ -200,8 +200,6 @@ zsh git_setup.sh
 Be careful, you **need** to put the **same** email as the one you sign up with on GitHub.
 
 Please now **quit** all your opened terminal windows.
-
-### Atom configuration
 
 ### SSH Passphrase
 

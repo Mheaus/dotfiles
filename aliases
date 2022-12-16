@@ -21,6 +21,7 @@ alias dpsf="docker ps -f"
 alias dpsft='dps --format "table{{.ID}}\t{{.Names}}\t{{.Status}}"'
 
 # git
+alias gclm='git checkout $(git_main_branch) && git pull origin $(git_main_branch) && git pull vanilla $(git_main_branch) && git push origin $(git_main_branch)'
 alias gsta='git stash'
 alias gltag='git fetch && git tag --sort=-version:refname | grep -E "[0-9]+.[0-9]+.[0-9]+" | head -n 1'
 alias gfw='git flow'
@@ -31,6 +32,8 @@ alias gfwh='git flow hotfix'
 alias gfwr='git flow release'
 alias gt='git tag'
 alias gpo='git push origin'
+alias gpoc='git push origin $(git_current_branch)'
+alias gpocfl='git push origin $(git_current_branch) --force-with-lease'
 
 # npm
 alias npmrmi='rm -rf node_modules package-lock.json && npm i'
@@ -42,7 +45,6 @@ alias atts='atom ~'
 alias atpl='apm list --installed --bare'
 alias chrome='open -a "Google Chrome"'
 alias edex='z edex-ui && npm run start'
-
-# work
-alias devtoken='cd ~/code/devtoken && docker-compose up -d && open -a "Google Chrome" http://front.devtoken.localhost'
-alias sand='z sandbox && ./sandbox'
+alias dev='z keycloak && docker compose up -d && z authorization && docker-compose up -d && z aos-app && docker-compose up -d mongo redis minio-server minio-client && MODE="dev" pm2 start ecosystem.config.js --only "aos-server-app, aos-api-authorization"'
+alias pms='MODE="dev" pm2 start ecosystem.config.js --only '
+alias pmr='MODE="dev" pm2 reload ecosystem.config.js --only '

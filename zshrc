@@ -1,3 +1,5 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 # profiling
 if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
@@ -99,6 +101,8 @@ zplug "mdumitru/last-working-dir"
 zplug "pndurette/zsh-lux"
 # plugin that reminds you to use existing aliases for commands you just typed
 zplug "MichaelAquilina/zsh-you-should-use"
+# automatically switch versions of node by looking for a .nvmrc file in the path tree
+zplug "aspirewit/zsh-nvm-auto-switch"
 
 # Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 # export HOMEBREW_NO_ANALYTICS=1
@@ -114,6 +118,9 @@ export LC_ALL=en_US.UTF-8
 
 # Always enable colored `grep` output.
 export GREP_OPTIONS='--color=auto';
+
+# set default git main branch to main
+export git_main_branch="main"
 
 # iterm shell integration
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -132,6 +139,9 @@ zplug load
 ##### aliases #####
 [[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
 
+# Github NPM Token variable
+# extract //npm.pkg.github.com/:_authToken= value from .npmrc
+export GITHUB_TOKEN=$(grep -E '//npm.pkg.github.com/:_authToken=' ~/.npmrc | cut -d '=' -f 2)
 
 # flutter path
 export PATH="$PATH:`pwd`/flutter/bin"
@@ -140,3 +150,17 @@ export PATH="$PATH:`pwd`/flutter/bin"
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
+
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# archey swag from https://github.com/HorlogeSkynet/archey4
+archey
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/math/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/math/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/math/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/math/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
