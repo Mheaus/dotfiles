@@ -127,7 +127,7 @@ module.exports = {
 
     // for environment variables
     env: {
-      HYPERLINE_CONFIG: `{"gitlabUrl":"https://gitlab.com","gitlabPrivateToken": "${GITLLAB_PRIVATE_TOKEN}", "plugins":"[[time, battery, memory, cpu, network, docker], [gitlab]]"}`,
+      // HYPERLINE_CONFIG: `{"gitlabUrl":"https://gitlab.com","gitlabPrivateToken": "$(GITLAB_PRIVATE_TOKEN)", "plugins":"[[time, battery, memory, cpu, network, docker], [gitlab]]"}`,
     },
 
     // set to `false` for no bell
