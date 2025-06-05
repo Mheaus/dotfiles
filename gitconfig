@@ -24,16 +24,12 @@
   stat = !git --no-pager diff --stat
 
   # Clean merged branches
-  sweep = !git branch --merged master | grep -v 'master$' | xargs git branch -d && git remote prune origin
+  sweep = !git branch --merged main | grep -v 'main$' | xargs git branch -d && git remote prune origin
 
   # http://www.jukie.net/bart/blog/pimping-out-git-log
   lg = log --graph --all --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)%an%Creset %C(yellow)%d%Creset'
 
-  # Serve local repo. http://coderwall.com/p/eybtga
-  # Then other can access via `git clone git://#{YOUR_IP_ADDRESS}/
-  serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
-
-  m = checkout master
+  m = checkout main
 
   # Removes a file from the index
   unstage = reset HEAD --
@@ -44,7 +40,7 @@
 [push]
 	default = simple
 
-[branch "master"]
+[branch "main"]
   mergeoptions = --no-edit
 [user]
 	name = Mathieu Audebert
@@ -55,5 +51,9 @@
 	process = git-lfs filter-process
 	required = true
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/local/bin/gh auth git-credential
+[pull]
+	rebase = true
+[init]
+	defaultBranch = main

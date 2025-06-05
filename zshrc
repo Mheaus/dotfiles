@@ -1,43 +1,56 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
-# profiling
+##### ────────────────[ Profiling ]─────────────── #####
+
 if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
 fi
 
-# zplug framework https://github.com/zplug/zplug
-# install zplug if not found
-[[ -d ~/.zplug ]] || {
-  curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-  source ~/.zplug/zplug
-  zplug update --self
+##### ────────────────[ Antidote ]─────────────── #####
+
+# Antidote (https://getantidote.github.io)
+source /usr/local/opt/antidote/share/antidote/antidote.zsh
+
+autoload -Uz compinit
+compinit
+
+setopt prompt_subst
+
+autoload -Uz colors && colors
+
+# Patch pour éviter les erreurs avec les wrappers OMZ (ex: _defer_async_git_register)
+_omz_register_handler() {}
+
+git_branch_prompt() {
+  local branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+  [[ -n "$branch" ]] && echo "%{$fg[magenta]%}($branch)%{$reset_color%}"
 }
 
-# essential
-source ~/.zplug/init.zsh
+# Chargement rapide des plugins
+source ~/.zsh_plugins.zsh
 
 ZSH=$HOME/.oh-my-zsh
 
-##### history management #####
+##### ────────────────[ History management ]─────────────── #####
+
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
 export SAVEHIST=10000
-setopt BANG_HIST # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY # Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE # Don't record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS # Don't write duplicate entries in the history file.
-setopt HIST_REDUCE_BLANKS # Remove superfluous blanks before recording entry.
-setopt HIST_VERIFY # Don't execute immediately upon history expansion.
 
-setopt correct # try to correct spelling of commands
+setopt BANG_HIST
+setopt EXTENDED_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt HIST_VERIFY
+setopt correct
 
-##### functions ####
+##### ────────────────[ Fonctions utilitaires ]─────────────── #####
+
 timezsh() {
   shell=${1-$SHELL}
   for i in $(seq 1 10); do /usr/bin/time $shell -i -c exit; done
@@ -48,61 +61,34 @@ profzsh() {
   ZPROF=true $shell -i -c exit
 }
 
+##### ────────────────[ FNM: ultra-rapide alternative à NVM ]─────────────── #####
 
-# Add ruby version on prompt (float right)
-# if [ -x "$(command -v rbenv)" ]; then RPS1='[$(ruby_prompt_info)]$EPS1'; fi
+eval "$(fnm env --use-on-cd)"
+[[ -f "$HOME/.fnm/completions" ]] && source "$HOME/.fnm/completions"
+[[ -f "$HOME/.fnm/env" ]] && source "$HOME/.fnm/env"
 
-# custom title
-# DISABLE_AUTO_TITLE="true"
-# case $TERM in
-#   xterm*)
-#     precmd () {print -Pn "\e]0;%~\a"}
-#     ;;
-# esac
+##### ────────────────[ Liaison clavier plugins ]─────────────── #####
 
-##### theme #####
-zplug "Mheaus/zsh-theme", from:github, as:theme
-# zplug "themes/robbyrussell", from:oh-my-zsh, as:theme
-# zplug "ergenekonyigit/lambda-gitster", from:github, as:theme
-# zplug "NicolaiRuckel/oh-my-zsh-candy-light", from:github, as:theme
-# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
-
-# You can change the theme with another one:
-#   https://github.com/robbyrussell/oh-my-zsh/wiki/themes
-# ZSH_THEME="robbyrussell"
-
-##### plugins #####
-
-# installing, updating and loading nvm
-export NVM_LAZY_LOAD=true
-export NVM_DIR="$HOME/.nvm"
-# . "/usr/local/opt/nvm/nvm.sh"
-zplug "nvm-sh/nvm", use:nvm.sh # same
-# zplug "lukechilds/zsh-nvm"
-
-# oh-my-zsh plugins
-# plugins=(gitfast brew rbenv last-working-dir common-aliases zsh-syntax-highlighting history-substring-search z cp osx battery bgnotify)
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/gitfast", from:oh-my-zsh
-zplug "plugins/common-aliases", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-zplug "plugins/cp", from:oh-my-zsh
-zplug "plugins/osx", from:oh-my-zsh
-zplug "plugins/battery", from:oh-my-zsh
-zplug "plugins/bgnotify", from:oh-my-zsh
-zplug "zsh-users/zsh-syntax-highlighting"
 # don't forget to bindkey with zsh-history-substring-search :
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "mdumitru/last-working-dir"
-# handle dark/light theme
-zplug "pndurette/zsh-lux"
-# plugin that reminds you to use existing aliases for commands you just typed
-zplug "MichaelAquilina/zsh-you-should-use"
-# automatically switch versions of node by looking for a .nvmrc file in the path tree
-zplug "aspirewit/zsh-nvm-auto-switch"
+
+##### ────────────────[ Aliases & Envs persos ]─────────────── #####
+
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+[[ -f "$HOME/.zshenv" ]] && source "$HOME/.zshenv"
+
+##### ────────────────[ Divers exports ]─────────────── #####
+
+# Always enable colored `grep` output.
+export GREP_OPTIONS='--color=auto';
+
+# set default git main branch to main
+export git_main_branch="main"
+
+# Encoding stuff for the terminal
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 # export HOMEBREW_NO_ANALYTICS=1
@@ -111,56 +97,46 @@ zplug "aspirewit/zsh-nvm-auto-switch"
 # So instead of running `bin/rails` like the doc says, just run `rails`
 # export PATH="./bin:${PATH}:/usr/local/sbin"
 
-# Encoding stuff for the terminal
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
 # export BUNDLER_EDITOR="subl $@ >/dev/null 2>&1"
-
-# Always enable colored `grep` output.
-export GREP_OPTIONS='--color=auto';
-
-# set default git main branch to main
-export git_main_branch="main"
 
 # iterm shell integration
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-# install plugins if some of them are not installed yet
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-
-# essential
-zplug load
-
-##### aliases #####
-[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
-
-# Github NPM Token variable
-# extract //npm.pkg.github.com/:_authToken= value from .npmrc
-export GITHUB_TOKEN=$(grep -E '//npm.pkg.github.com/:_authToken=' ~/.npmrc | cut -d '=' -f 2)
+# github-copilot-cli aliases
+# eval "$(github-copilot-cli alias -- "$0")"
 
 # flutter path
-export PATH="$PATH:`pwd`/flutter/bin"
+# export PATH="$PATH:`pwd`/flutter/bin"
 
-# end of profiling
+##### ────────────────[ Archey swag ]─────────────── #####
+
+# archey swag from https://github.com/HorlogeSkynet/archey4
+archey() {
+  command archey
+}
+precmd_functions+=(archey)
+
+##### ────────────────[ Google Cloud SDK ]─────────────── #####
+
+if [ -f '/Users/mheos/google-cloud-sdk/path.zsh.inc' ]; then
+  . '/Users/mheos/google-cloud-sdk/path.zsh.inc'
+fi
+
+if [ -f '/Users/mheos/google-cloud-sdk/completion.zsh.inc' ]; then
+  . '/Users/mheos/google-cloud-sdk/completion.zsh.inc'
+fi
+
+##### ────────────────[ Bun ]─────────────── #####
+
+[ -s "/Users/mheos/.bun/_bun" ] && source "/Users/mheos/.bun/_bun"
+
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# eval "$(starship init zsh)"
+
+##### ────────────────[ Fin de profiling ]─────────────── #####
+
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
-
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# archey swag from https://github.com/HorlogeSkynet/archey4
-archey
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/math/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/math/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/math/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/math/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
-
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"

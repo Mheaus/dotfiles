@@ -3,10 +3,7 @@
     "editor.wordWrap": "wordWrapColumn",
     "editor.wordWrapColumn": 80
   },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
+  "[javascriptreact,typescript,typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "atlascode.jira.workingSite": {
@@ -20,14 +17,8 @@
   "eslint.validate": [
     "javascript",
     "javascriptreact",
-    {
-      "language": "typescript",
-      "autoFix": true
-    },
-    {
-      "language": "typescriptreact",
-      "autoFix": true
-    }
+    "typescript",
+    "typescriptreact",
   ],
   "yaml.schemas": {
     "file:///Users/math/.vscode/extensions/atlassian.atlascode-2.10.12/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
@@ -48,7 +39,6 @@
   "editor.tabCompletion": "onlySnippets",
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
-  "eslint.autoFixOnSave": true,
   "eslint.experimental.incrementalSync": true,
   "eslint.run": "onSave",
   "files.autoSave": "onFocusChange",
@@ -65,7 +55,6 @@
   "javascript.preferences.importModuleSpecifier": "relative",
   "javascript.preferences.quoteStyle": "single",
   "jest.autoEnable": false,
-  "npm.enableScriptExplorer": true,
   "prettier.printWidth": 100,
   "search.quickOpen.includeSymbols": true,
   "search.smartCase": true,
@@ -76,7 +65,6 @@
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.quoteStyle": "single",
   "typescript.suggest.completeFunctionCalls": true,
-  "workbench.colorTheme": "Atom One Dark",
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.editor.revealIfOpen": true,
   "workbench.fontAliasing": "antialiased",
@@ -187,6 +175,30 @@
   "atomKeymap.promptV3Features": true,
   "editor.formatOnPaste": true,
   "githubPullRequests.pullBranch": "never",
+  "settingsSync.ignoredExtensions": ["vue.volar"],
+  "editor.linkedEditing": true,
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "files.associations": {
+    "*.svg": "html"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "window.zoomLevel": -1,
-  "settingsSync.ignoredExtensions": ["vue.volar"]
+  "vetur.format.defaultFormatterOptions": {
+
+    "js-beautify-html": {
+      "wrap_attributes": "force-expand-multiline"
+    },
+    "prettyhtml": {
+      "printWidth": 100,
+      "singleQuote": false,
+      "wrapAttributes": false,
+      "sortAttributes": false
+    }
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.colorTheme": "Atom One Dark"
 }

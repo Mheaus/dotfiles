@@ -21,30 +21,22 @@ alias dpsf="docker ps -f"
 alias dpsft='dps --format "table{{.ID}}\t{{.Names}}\t{{.Status}}"'
 
 # git
-alias gclm='git checkout $(git_main_branch) && git pull origin $(git_main_branch) && git pull vanilla $(git_main_branch) && git push origin $(git_main_branch)'
+alias gclm='git checkout $(git_main_branch) && git pull origin $(git_main_branch)'
 alias gsta='git stash'
 alias gltag='git fetch && git tag --sort=-version:refname | grep -E "[0-9]+.[0-9]+.[0-9]+" | head -n 1'
-alias gfw='git flow'
-alias gfwf='git flow feature'
-alias gfwfs='git flow feature start'
-alias gfwff='git flow feature finish'
-alias gfwh='git flow hotfix'
-alias gfwr='git flow release'
 alias gt='git tag'
 alias gpo='git push origin'
 alias gpoc='git push origin $(git_current_branch)'
 alias gpocfl='git push origin $(git_current_branch) --force-with-lease'
+alias gloc='git pull origin $(git_current_branch)'
+alias g-="git switch -"
+alias grbmain='git add -A && if [[ -n "$(git status --porcelain)" ]]; then git stash push -m "temporary-stash-for-grbmain"; fi && git switch $(git_main_branch) && git pull origin $(git_main_branch) && git switch - && if git stash list | grep -q "temporary-stash-for-grbmain"; then git stash pop stash@{0}; fi'
 
 # npm
 alias npmrmi='rm -rf node_modules package-lock.json && npm i'
+alias pnrmi='rm -rf node_modules pnpm-lock.yaml && pnpm i'
+alias pn='pnpm'
 
 # apps
 alias vsc='code .'
-alias att='atom .'
-alias atts='atom ~'
-alias atpl='apm list --installed --bare'
 alias chrome='open -a "Google Chrome"'
-alias edex='z edex-ui && npm run start'
-alias dev='z keycloak && docker compose up -d && z authorization && docker-compose up -d && z aos-app && docker-compose up -d mongo redis minio-server minio-client && MODE="dev" pm2 start ecosystem.config.js --only "aos-server-app, aos-api-authorization"'
-alias pms='MODE="dev" pm2 start ecosystem.config.js --only '
-alias pmr='MODE="dev" pm2 reload ecosystem.config.js --only '
