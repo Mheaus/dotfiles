@@ -44,7 +44,7 @@ It will be used as soon as we need to install some software.
 To do so, open your Terminal and run:
 
 ```bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 This will ask for your confirmation (hit `Enter`) and your laptop session password.
@@ -209,7 +209,7 @@ In a terminal window, launch this command:
 sw_vers
 ```
 
-If your OS version (`ProductVersion` line) is greater or equal than **10.12**, you may proceed with the rest of this section. :warning: Otherwise, skip it and go directly to the Ruby install.
+If your OS version (`ProductVersion` line) is greater or equal than **10.12**, you may proceed with the rest of this section.
 
 In order not to re-type your SSH passphrase at every `git push`, you can add these lines to the `~/.ssh/config` file:
 
@@ -239,10 +239,10 @@ Let's check if you successfully installed everything.
 Quit all opened Terminal, open a new one and run the following commands:
 
 ```bash
-curl -Ls https://raw.githubusercontent.com/lewagon/setup/master/check.rb > _.rb && ruby _.rb || rm _.rb
+brew doctor
 ```
 
-It should tell you if your workstation is ready :) If not, ask a teacher.
+It should tell you if your workstation is ready :)
 
 ## Keyboard
 

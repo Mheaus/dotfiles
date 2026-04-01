@@ -93,12 +93,6 @@ export LC_ALL=en_US.UTF-8
 # Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 # export HOMEBREW_NO_ANALYTICS=1
 
-# Rails and Ruby uses the local `bin` folder to store binstubs.
-# So instead of running `bin/rails` like the doc says, just run `rails`
-# export PATH="./bin:${PATH}:/usr/local/sbin"
-
-# export BUNDLER_EDITOR="subl $@ >/dev/null 2>&1"
-
 # iterm shell integration
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
