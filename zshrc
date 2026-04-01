@@ -135,6 +135,17 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # eval "$(starship init zsh)"
 
+##### ────────────────[ Extra PATH ]─────────────── #####
+
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="/opt/nanobrew/prefix/bin:$HOME/.local/bin:$HOME/Library/Python/3.9/bin:$PATH"
+
+# OrbStack
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+# LM Studio
+export PATH="$PATH:$HOME/.lmstudio/bin"
+
 ##### ────────────────[ Fin de profiling ]─────────────── #####
 
 if [[ "$ZPROF" = true ]]; then

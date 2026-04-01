@@ -40,3 +40,8 @@ alias pn='pnpm'
 # apps
 alias vsc='code .'
 alias chrome='open -a "Google Chrome"'
+
+# scripts
+alias aisk='pnpm dlx tsx ~/code/mheaus/scripts/aisk.ts'
+
+alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"

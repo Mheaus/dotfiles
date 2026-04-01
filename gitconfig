@@ -39,6 +39,7 @@
 
 [push]
 	default = simple
+	autoSetupRemote = true
 
 [branch "main"]
   mergeoptions = --no-edit

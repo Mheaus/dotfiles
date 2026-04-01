@@ -1,6 +1,32 @@
 Include ~/.orbstack/ssh/config
 
+Host 51.178.52.183
+  HostName 51.178.52.183
+  User ubuntu
+
+Host 100.86.130.10
+  HostName 100.86.130.10
+  User sakuga-mini
+
+Host 159.89.97.44
+  HostName 159.89.97.44
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa
+  User root
+
+Host 51.159.141.131
+  HostName 51.159.141.131
+  IdentitiesOnly yes
+  IdentityFile ~/.ssh/id_rsa
+  User root
+
 Host *
   UseKeychain yes
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_ed25519
+
+Host azure-devops
+  HostName ssh.dev.azure.com
+  User git
+  IdentityFile ~/.ssh/id_rsa_royal-canin
+  IdentitiesOnly yes
