@@ -7,7 +7,7 @@ fi
 ##### ────────────────[ Antidote ]─────────────── #####
 
 # Antidote (https://getantidote.github.io)
-source /usr/local/opt/antidote/share/antidote/antidote.zsh
+source $(brew --prefix antidote)/share/antidote/antidote.zsh
 
 autoload -Uz compinit
 compinit
@@ -26,10 +26,6 @@ git_branch_prompt() {
 
 # Chargement rapide des plugins
 source ~/.zsh_plugins.zsh
-
-ZSH=$HOME/.oh-my-zsh
-
-##### ────────────────[ History management ]─────────────── #####
 
 export HISTFILE=~/.zsh_history
 export HISTSIZE=10000
@@ -81,7 +77,7 @@ bindkey '^[[B' history-substring-search-down
 ##### ────────────────[ Divers exports ]─────────────── #####
 
 # Always enable colored `grep` output.
-export GREP_OPTIONS='--color=auto';
+alias grep='grep --color=auto'
 
 # set default git main branch to main
 export git_main_branch="main"

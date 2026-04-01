@@ -23,24 +23,13 @@ symlink() {
 
 # For all files `$name` in the present folder except `*.sh`, `README.md`, `settings.json`,
 # and `config`, backup the target file located at `~/.$name` and symlink `$name` to `~/.$name`
-for name in aliases gitconfig zshrc hyper.js; do
+for name in aliases gitconfig zshrc; do
   if [ ! -d "$name" ]; then
     target="$HOME/.$name"
     backup $target
     symlink $PWD/$name $target
   fi
 done
-
-# Install zsh-syntax-highlighting plugin
-CURRENT_DIR=`pwd`
-ZSH_PLUGINS_DIR="$HOME/.oh-my-zsh/custom/plugins"
-mkdir -p "$ZSH_PLUGINS_DIR" && cd "$ZSH_PLUGINS_DIR"
-if [ ! -d "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" ]; then
-  echo "-----> Installing zsh plugin 'zsh-syntax-highlighting'..."
-  git clone https://github.com/zsh-users/zsh-autosuggestions
-  git clone git://github.com/zsh-users/zsh-syntax-highlighting.git
-fi
-cd "$CURRENT_DIR"
 
 # Symlink VS Code settings and keybindings to the present `settings.json` file
 # If it's a macOS

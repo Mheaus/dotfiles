@@ -24,6 +24,9 @@ Host *
   UseKeychain yes
   AddKeysToAgent yes
   IdentityFile ~/.ssh/id_ed25519
+  ServerAliveInterval 60
+  ServerAliveCountMax 10
+  StrictHostKeyChecking accept-new
 
 Host azure-devops
   HostName ssh.dev.azure.com

@@ -1,2 +1,17 @@
 # Mac OSX Finder hidden files
 .DS_Store
+
+# IDE & Editors
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
