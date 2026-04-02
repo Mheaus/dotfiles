@@ -101,10 +101,7 @@ export LC_ALL=en_US.UTF-8
 ##### ────────────────[ Archey swag ]─────────────── #####
 
 # archey swag from https://github.com/HorlogeSkynet/archey4
-archey() {
-  command archey
-}
-precmd_functions+=(archey)
+archey
 
 ##### ────────────────[ Google Cloud SDK ]─────────────── #####
 
