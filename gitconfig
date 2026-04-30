@@ -61,7 +61,7 @@
 	required = true
 [credential "https://github.com"]
 	helper =
-	helper = !/usr/local/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [pull]
 	rebase = true
 [init]

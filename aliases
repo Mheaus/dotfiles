@@ -46,4 +46,11 @@ alias chrome='open -a "Google Chrome"'
 # scripts
 alias aisk='pnpm dlx tsx ~/code/mheaus/scripts/aisk.ts'
 
+# nanobrew
+alias brew='nb'
+
 alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+# claude code
+alias cc='CLAUDE_CODE_NO_FLICKER=1 claude'
+alias ccd='CLAUDE_CODE_NO_FLICKER=1 claude --dangerously-skip-permissions'

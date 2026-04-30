@@ -1,12 +1,12 @@
 #!/bin/zsh
 
-# Define a function which rename a `target` file to `target.backup` if the file
-# exists and if it's a 'real' file, ie not a symlink
+DOTFILES_DIR=$(cd "$(dirname "$0")" && pwd)
+
 backup() {
   target=$1
-  if [ -e "$target" ]; then           # Does the config file already exist?
-    if [ ! -L "$target" ]; then       # as a pure file?
-      mv "$target" "$target.backup"   # Then backup it
+  if [ -e "$target" ]; then
+    if [ ! -L "$target" ]; then
+      mv "$target" "$target.backup"
       echo "-----> Moved your old $target config file to $target.backup"
     fi
   fi
@@ -21,49 +21,56 @@ symlink() {
   fi
 }
 
-# For all files `$name` in the present folder except `*.sh`, `README.md`, `settings.json`,
-# and `config`, backup the target file located at `~/.$name` and symlink `$name` to `~/.$name`
+# Core dotfiles
 for name in aliases gitconfig zshrc; do
   if [ ! -d "$name" ]; then
     target="$HOME/.$name"
     backup $target
-    symlink $PWD/$name $target
+    symlink $DOTFILES_DIR/$name $target
   fi
 done
 
-# Symlink VS Code settings and keybindings to the present `settings.json` file
-# If it's a macOS
-if [[ `uname` =~ "Darwin" ]]; then
-  CODE_PATH=~/Library/Application\ Support/Code/User
-# Else, it's a Linux
-else
-  CODE_PATH=~/.config/Code/User
-  # If this folder doesn't exist, it's a WSL
-  if [ ! -e $CODE_PATH ]; then
-    CODE_PATH=~/.vscode-server/data/Machine
-  fi
+# zsh_plugins.txt (antidote plugin list)
+backup "$HOME/.zsh_plugins.txt"
+symlink "$DOTFILES_DIR/zsh_plugins.txt" "$HOME/.zsh_plugins.txt"
+
+# zshenv: copy example if no real file exists
+if [ ! -f "$HOME/.zshenv" ]; then
+  cp "$DOTFILES_DIR/zshenv.example" "$HOME/.zshenv"
+  echo "-----> Created ~/.zshenv from zshenv.example — fill in your secrets"
 fi
 
-cd "$CURRENT_DIR/vscode"
+# VS Code settings and keybindings
+if [[ $(uname) =~ "Darwin" ]]; then
+  CODE_PATH="$HOME/Library/Application Support/Code/User"
+else
+  CODE_PATH="$HOME/.config/Code/User"
+  if [ ! -e "$CODE_PATH" ]; then
+    CODE_PATH="$HOME/.vscode-server/data/Machine"
+  fi
+fi
 
 for name in settings.json keybindings.json; do
   target="$CODE_PATH/$name"
-  backup $target
-  symlink $PWD/$name $target
+  backup "$target"
+  symlink "$DOTFILES_DIR/vscode/$name" "$target"
 done
 
-cd -
-
-# Symlink SSH config file to the present `config` file for macOS and add SSH passphrase to the keychain
-if [[ `uname` =~ "Darwin" ]]; then
-  target=~/.ssh/config
+# SSH config
+if [[ $(uname) =~ "Darwin" ]]; then
+  target="$HOME/.ssh/config"
   backup $target
-  symlink $PWD/config $target
-  ssh-add --apple-use-keychain ~/.ssh/id_ed25519
+  symlink "$DOTFILES_DIR/config" $target
+  ssh-add --apple-use-keychain ~/.ssh/id_ed25519 2>/dev/null || true
 fi
 
+# iTerm2: load preferences from dotfiles
+if [[ $(uname) =~ "Darwin" ]] && [ -d "$DOTFILES_DIR/iterm2" ]; then
+  echo "-----> Configuring iTerm2 to load prefs from dotfiles"
+  defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool YES
+  defaults write com.googlecode.iterm2 PrefsCustomFolder "$DOTFILES_DIR/iterm2"
+fi
 
-# Refresh the current terminal with the newly installed configuration
 exec zsh
 
 echo "👌 Carry on with git setup!"

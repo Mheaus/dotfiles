@@ -1,0 +1,20 @@
+getantidote/use-omz
+
+# oh-my-zsh plugins
+ohmyzsh/ohmyzsh path:lib/git.zsh
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/gitfast
+ohmyzsh/ohmyzsh path:plugins/common-aliases
+ohmyzsh/ohmyzsh path:plugins/z
+ohmyzsh/ohmyzsh path:plugins/cp
+ohmyzsh/ohmyzsh path:plugins/bgnotify
+
+# autres plugins
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search
+zsh-users/zsh-autosuggestions
+mdumitru/last-working-dir
+MichaelAquilina/zsh-you-should-use
+
+# themes
+Mheaus/zsh-theme

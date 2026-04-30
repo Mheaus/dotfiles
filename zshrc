@@ -4,10 +4,13 @@ if [[ "$ZPROF" = true ]]; then
   zmodload zsh/zprof
 fi
 
+# Put nanobrew on PATH before anything that needs fnm/archey/antidote/etc.
+export PATH="/opt/nanobrew/prefix/bin:$PATH"
+
 ##### ────────────────[ Antidote ]─────────────── #####
 
 # Antidote (https://getantidote.github.io)
-source $(brew --prefix antidote)/share/antidote/antidote.zsh
+source /opt/nanobrew/prefix/Cellar/antidote/*/share/antidote/antidote.zsh
 
 autoload -Uz compinit
 compinit
@@ -24,7 +27,8 @@ git_branch_prompt() {
   [[ -n "$branch" ]] && echo "%{$fg[magenta]%}($branch)%{$reset_color%}"
 }
 
-# Chargement rapide des plugins
+# Chargement rapide des plugins (regenerate static bundle if missing)
+[[ -f ~/.zsh_plugins.zsh ]] || antidote bundle <~/.zsh_plugins.txt >~/.zsh_plugins.zsh
 source ~/.zsh_plugins.zsh
 
 export HISTFILE=~/.zsh_history
@@ -59,9 +63,8 @@ profzsh() {
 
 ##### ────────────────[ FNM: ultra-rapide alternative à NVM ]─────────────── #####
 
+unset FNM_ARCH  # was leaking x64 from old Intel fnm and forcing Rosetta Node
 eval "$(fnm env --use-on-cd)"
-[[ -f "$HOME/.fnm/completions" ]] && source "$HOME/.fnm/completions"
-[[ -f "$HOME/.fnm/env" ]] && source "$HOME/.fnm/env"
 
 ##### ────────────────[ Liaison clavier plugins ]─────────────── #####
 
@@ -86,7 +89,7 @@ export git_main_branch="main"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Prevent Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
+# Prevent nanobrew/Homebrew from reporting - https://github.com/Homebrew/brew/blob/master/share/doc/homebrew/Analytics.md
 # export HOMEBREW_NO_ANALYTICS=1
 
 # iterm shell integration
@@ -105,17 +108,17 @@ archey
 
 ##### ────────────────[ Google Cloud SDK ]─────────────── #####
 
-if [ -f '/Users/mheos/google-cloud-sdk/path.zsh.inc' ]; then
-  . '/Users/mheos/google-cloud-sdk/path.zsh.inc'
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then
+  . "$HOME/google-cloud-sdk/path.zsh.inc"
 fi
 
-if [ -f '/Users/mheos/google-cloud-sdk/completion.zsh.inc' ]; then
-  . '/Users/mheos/google-cloud-sdk/completion.zsh.inc'
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then
+  . "$HOME/google-cloud-sdk/completion.zsh.inc"
 fi
 
 ##### ────────────────[ Bun ]─────────────── #####
 
-[ -s "/Users/mheos/.bun/_bun" ] && source "/Users/mheos/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -125,7 +128,11 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 ##### ────────────────[ Extra PATH ]─────────────── #####
 
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH="/opt/nanobrew/prefix/bin:$HOME/.local/bin:$HOME/Library/Python/3.9/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+# Strip Intel Homebrew paths so nothing runs under Rosetta (chrome-devtools-mcp etc.)
+PATH=$(echo "$PATH" | tr ':' '\n' | grep -vE '^/usr/local(/bin|/sbin|/opt/)' | paste -sd: -)
+export PATH
 
 # OrbStack
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
@@ -138,3 +145,6 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"

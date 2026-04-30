@@ -1,0 +1,20 @@
+# ~/.zshenv — environment variables loaded for every shell (login, interactive, scripts)
+# Copy this to ~/.zshenv and fill in your values.
+# Secrets are read from macOS Keychain — add them with:
+#   security add-generic-password -a "$USER" -s KEY_NAME -w "value"
+
+# GitHub NPM packages token (also set in ~/.npmrc)
+export GITHUB_TOKEN=$(grep -E '//npm.pkg.github.com/:_authToken=' ~/.npmrc | cut -d '=' -f 2)
+
+# Secrets from Keychain
+export TIPTAP_PRO_TOKEN=$(security find-generic-password -a "$USER" -s TIPTAP_PRO_TOKEN -w 2>/dev/null)
+export LINEAR_API_KEY=$(security find-generic-password -a "$USER" -s LINEAR_API_KEY -w 2>/dev/null)
+export DOKPLOY_URL="https://dokploy.sakuga.dev"
+export DOKPLOY_API_KEY=$(security find-generic-password -a "$USER" -s DOKPLOY_API_KEY -w 2>/dev/null)
+
+# pnpm
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
